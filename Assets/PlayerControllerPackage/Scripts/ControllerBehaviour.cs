@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class ControllerBehaviour : MonoBehaviour
@@ -10,8 +11,9 @@ public class ControllerBehaviour : MonoBehaviour
     public void Load()
     {
         // try to find file
-        string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
-        if (File.Exists(filePath))
+        string filePath = "Assets/PlayerControllerPackage" + "/" + path + "/" + this.GetType().Name + ".json";
+        TextAsset file = AssetDatabase.LoadAssetAtPath<TextAsset>(filePath);
+        if (file)
         {
             string json = File.ReadAllText(filePath);
             JsonUtility.FromJsonOverwrite(json, this);
@@ -24,9 +26,11 @@ public class ControllerBehaviour : MonoBehaviour
     public void Save()
     {
         // delete old file and make new
-        string json = JsonUtility.ToJson(this);
-        string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
-        if (File.Exists(filePath))
+        string json = JsonUtility.ToJson(this, true);
+        string filePath = "Assets/PlayerControllerPackage" + "/" + path + "/" + this.GetType().Name + ".json";
+
+        TextAsset file = AssetDatabase.LoadAssetAtPath<TextAsset>(filePath);
+        if (file)
         {
             File.Delete(filePath);
         }
