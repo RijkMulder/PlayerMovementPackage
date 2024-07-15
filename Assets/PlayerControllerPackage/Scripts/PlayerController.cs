@@ -11,4 +11,5 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerControllerType controllerType;
     public List <Component> currentScripts = new List <Component> ();
+    [HideInInspector]public TextAsset importJson;
 }

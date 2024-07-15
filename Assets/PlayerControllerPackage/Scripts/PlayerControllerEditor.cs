@@ -18,6 +18,7 @@ public class PlayerControllerEditor : Editor
         playerController = (PlayerController)target;
         currentScripts = playerController.currentScripts;
         DrawDefaultInspector();
+
         // add first person scripts
         if (previousType != playerController.controllerType)
         {
@@ -36,6 +37,26 @@ public class PlayerControllerEditor : Editor
                 previousType = PlayerControllerType.ThirdPerson;
             }
         }
+
+        // custom layout
+        GUILayout.Space(10);
+        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(5));
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+
+        // import button
+        GUILayout.Label("Import settings", EditorStyles.boldLabel, GUILayout.Width(100));
+        if (GUILayout.Button("", GUILayout.Width(20)))
+        {
+            if (playerController.importJson == null) { Debug.LogError("No input for importing settings!"); return; }
+            Debug.Log(playerController.importJson);
+        }
+
+        GUILayout.Space(10);
+        
+        // import input
+        playerController.importJson = (TextAsset)EditorGUILayout.ObjectField(playerController.importJson, typeof(TextAsset), false, GUILayout.Width(200));
+        GUILayout.EndHorizontal();
     }
     private void LoadScripts(string folder)
     {

@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 507465553}
   - {fileID: 507465552}
   - {fileID: 507465551}
+  importJson: {fileID: 0}
 --- !u!4 &507465550
 Transform:
   m_ObjectHideFlags: 0
